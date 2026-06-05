@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>电商用户行为分析 — 作品集</title>
+<style>
+  body {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: #333;
+    line-height: 1.9;
+    background: #fff;
+  }
+  h1 { text-align: center; font-size: 24px; margin: 30px 0 6px; }
+  h2 { font-size: 18px; border-left: 3px solid #2b7de9; padding-left: 10px; margin: 44px 0 18px; }
+  h3 { font-size: 15px; margin: 26px 0 10px; color: #444; }
+  .subtitle { text-align: center; color: #999; font-size: 14px; margin-bottom: 30px; }
+  .tags { text-align: center; margin: 16px 0; }
+  .tags span { display: inline-block; background: #e8f0fe; color: #1a73e8; padding: 3px 10px; border-radius: 3px; font-size: 13px; margin: 2px; }
+
+  /* 数据指标卡片 */
+  .kpi-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; justify-content: center; }
+  .kpi { background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 6px; padding: 14px 18px; text-align: center; min-width: 110px; }
+  .kpi .k { font-size: 22px; font-weight: bold; color: #1a73e8; }
+  .kpi .v { font-size: 12px; color: #999; }
+
+  /* 内容卡片 */
+  .card { background: #fafafa; border: 1px solid #eee; border-radius: 6px; padding: 20px; margin: 16px 0; font-size: 14px; }
+
+  img { max-width: 100%; border: 1px solid #eee; border-radius: 4px; margin: 10px 0; }
+  .img-cap { font-size: 13px; color: #999; margin: 0 0 16px; }
+
+  pre { background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 4px; padding: 16px; overflow-x: auto; font-size: 13px; line-height: 1.6; }
+
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+  th { background: #f8f9fa; }
+
+  /* 分析发现 */
+  .insight { padding: 12px 16px; margin: 12px 0; font-size: 14px; border-radius: 0 4px 4px 0; }
+  .insight.bad { background: #fff3f0; border-left: 3px solid #e53935; }
+  .insight.good { background: #f5f7fa; border-left: 3px solid #2b7de9; }
+
+  /* 图表双列 */
+  .two-col { display: flex; gap: 14px; flex-wrap: wrap; margin: 14px 0; }
+  .two-col > div { flex: 1; min-width: 280px; }
+
+  .end { text-align: center; color: #bbb; font-size: 13px; margin: 50px 0 30px; border-top: 1px solid #eee; padding-top: 20px; }
+
+  @media (max-width: 600px) {
+    body { padding: 14px; }
+    .two-col > div { min-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<h1>电商用户行为分析系统</h1>
+<p class="subtitle">大三下学期独立完成 · 前后做了大概四周</p>
+
+<div class="tags">
+  <span>MySQL 8.4</span>
+  <span>Python & pandas</span>
+  <span>Power BI</span>
+  <span>SQL</span>
+</div>
+
+<!-- ====== 背景（Situation & Task） ====== -->
+<h2>为什么做这个项目</h2>
+<div class="card">
+  <p>大三上学期学完数据库原理课和Python之后，基础语法都知道了，但总感觉零零散散的，没串起来。正好数据分析岗位是电商行业招人最多的方向，就想找个完整的电商场景，从建库建表、写SQL，到出分析图表、搭BI看板，<strong>一条路走下来，看看自己到底能不能独立做一个完整的数据分析项目</strong>。</p>
+  <p style="margin-top:8px">数据没有用现成的Kaggle数据集，而是自己写Python脚本生成的——因为生成数据的过程本身就要求你理解每张表的业务含义和表之间的关系，这比直接拿现成数据学到的多。</p>
+</div>
+
+<!-- ====== 核心指标（Result 预览） ====== -->
+<div class="kpi-row">
+  <div class="kpi"><div class="k">3,687,572</div><div class="v">总GMV（元）</div></div>
+  <div class="kpi"><div class="k">5,000+</div><div class="v">用户数</div></div>
+  <div class="kpi"><div class="k">50,000+</div><div class="v">行为记录</div></div>
+  <div class="kpi"><div class="k">10,000+</div><div class="v">订单</div></div>
+  <div class="kpi"><div class="k">382</div><div class="v">客单价（元）</div></div>
+</div>
+
+<!-- ====== 行动（Action） ====== -->
+<h2>具体做了什么</h2>
+
+<h3>第一步：搭数据库</h3>
+<div class="card">
+  <pre>ecommerce_db
+├── users          — 用户表（5000人）
+├── categories     — 类目（10个）
+├── products       — 商品（200个）
+├── user_behavior  — 行为日志（5万条：浏览/加购/收藏）
+├── orders         — 订单（1万笔）
+├── order_items    — 订单明细（2.1万条）
+└── refunds        — 退款记录（300条）</pre>
+  <p>7张表，表之间用外键关联。行为表到用户表、订单表到用户表、订单明细到商品表——模拟的是真实电商的数据结构。索引加在了经常用来筛的字段上（user_id、order_date、behavior_type）。</p>
+</div>
+
+<h3>第二步：写SQL做分析</h3>
+<div class="card">
+  <p>写了11个核心查询，每个对应一个业务问题：</p>
+  <table>
+    <tr><th>分析目标</th><th>用的SQL技术</th></tr>
+    <tr><td>用户行为漏斗（浏览→加购→下单→支付）</td><td>CTE + COUNT DISTINCT + CASE WHEN</td></tr>
+    <tr><td>RFM用户分群（6层价值分层）</td><td>NTILE窗口函数 + CASE WHEN</td></tr>
+    <tr><td>GMV日趋势 + 7日移动平均</td><td>窗口函数 AVG OVER + ROWS BETWEEN</td></tr>
+    <tr><td>品类销售排名 & 占比</td><td>SUM + 子查询计算占比</td></tr>
+    <tr><td>时段热力分析</td><td>HOUR() + GROUP BY + 多维度聚合</td></tr>
+    <tr><td>退款率分析（按品类/按城市）</td><td>LEFT JOIN + 比率计算</td></tr>
+    <tr><td>用户留存分析</td><td>自关联 + 首次行为锚定</td></tr>
+  </table>
+</div>
+
+<h3>第三步：用Python出图</h3>
+<div class="card">
+  <p>pandas读数据 → matplotlib画图 → 导出8张PNG。不是什么复杂操作，但是把分析结果从"SQL跑出来的一堆数字"变成了"一眼能看懂的图表"。</p>
+</div>
+
+<h3>第四步：搭Power BI看板</h3>
+<div class="card">
+  <p>把数据导入Power BI Desktop，做了个交互式管理驾驶舱。可以按日期、类目、城市筛选，鼠标点哪就下钻到哪。这个主要是为了让分析结果能"给别人看"——不是只有自己能看懂的数字。</p>
+</div>
+
+<!-- ====== 结果（Result） ====== -->
+<h2>分析出来什么东西</h2>
+
+<h3>漏斗分析：下单的人里34.6%最后没付钱</h3>
+<img src="img/01_漏斗分析.png" alt="漏斗分析">
+<div class="img-cap">浏览 4,964 → 加购 4,127（83.1%）→ 下单 3,775（76.0%）→ 支付 2,467（65.4%）。下单到支付这一跳掉了最多。</div>
+
+<h3>RFM分群：19%的用户已经流失了</h3>
+<img src="img/02_RFM分群.png" alt="RFM分群">
+<div class="img-cap">6层用户：85个"重要价值用户"人均消费2,130元，最值钱。但947人已经流失，如果能把其中一半通过优惠券拉回来，GMV能涨不少。</div>
+
+<h3>GMV日趋势</h3>
+<img src="img/03_GMV趋势.png" alt="GMV趋势">
+<div class="img-cap">30天总GMV 368.7万，日均约1.97万。有明显的周末效应——周五六日比工作日高出一截。</div>
+
+<div class="two-col">
+  <div>
+    <img src="img/04_类目销售.png" alt="类目销售">
+    <div class="img-cap">母婴用品GMV最高，图书文娱垫底</div>
+  </div>
+  <div>
+    <img src="img/05_时段分析.png" alt="时段分析">
+    <div class="img-cap">18-21点占全天行为量的45%</div>
+  </div>
+</div>
+
+<div class="two-col">
+  <div>
+    <img src="img/06_退款分析.png" alt="退款分析">
+    <div class="img-cap">整体退款率0.6%，在正常范围</div>
+  </div>
+  <div>
+    <img src="img/07_城市TOP10.png" alt="城市TOP10">
+    <div class="img-cap">一线城市贡献最大</div>
+  </div>
+</div>
+
+<img src="img/08_会员分析.png" alt="会员分析">
+
+<!-- ====== 结论与建议 ====== -->
+<h2>基于数据的建议</h2>
+
+<div class="insight bad">
+  <strong>支付转化流程要优化</strong><br>
+  下单3,775人 → 支付2,467人，中间消失了1,308人。可能是支付页面加载慢、支付方式不够（比如没有花呗/白条），或者用户下单后又去比价了。这是影响GMV最大的一个环节，优先级最高。
+</div>
+
+<div class="insight bad">
+  <strong>流失预警机制应该提前做</strong><br>
+  947个流失用户不是突然消失的——从他们的行为数据里应该能找到规律（比如连续N天没有浏览行为）。与其等用户走了再花大价钱召回，不如提前识别快要流失的用户，推送优惠券或者活动提醒。
+</div>
+
+<div class="insight good">
+  <strong>晚高峰18-21点是黄金窗口</strong><br>
+  近一半的行为集中在这3小时。直播、秒杀、Push推送都应该安排在这个时段，ROI最高。
+</div>
+
+<div class="insight good">
+  <strong>品类结构有优化空间</strong><br>
+  母婴用品卖得好，但图书文娱GMV很低。需要搞清楚是用户没有买书的需求，还是我们的书选得不对——这决定了是砍品类还是换选品。
+</div>
+
+<!-- ====== 收获 ====== -->
+<h2>做完之后的感受</h2>
+<div class="card">
+  <ul>
+    <li>之前学SQL都是做练习题，一个查询一张表。这次真正感受到复杂业务问题需要把多个表连起来、嵌套好几层子查询——写的时候卡了好几次，但写完确实对SQL理解深了很多</li>
+    <li>数据分析最重要的不是跑SQL和画图，而是<strong>从数字里看出业务问题</strong>。漏斗转好还是转差、哪个环节掉人最多、为什么——这个判断力的锻炼比技术本身更有价值</li>
+    <li>Python和BI各有所长。Python适合做深入分析（比如RFM分群的计算逻辑比较复杂），BI适合把结果做成可交互的看板，方便给不懂技术的人看</li>
+    <li>数据是仿真的，但方法是真的。后来看面经里的业务分析题（"GMV下降了怎么分析""怎么给用户分层"），发现这个项目直接就能拿来当答案</li>
+  </ul>
+</div>
+
+<div class="end">
+  <p>* 所有数据均为Python生成的仿真数据，仅用于学习和展示数据分析能力</p>
+  <p style="margin-top:12px">📬 想看完整代码或Power BI看板？联系我就行</p>
+</div>
+
+</body>
+</html>
