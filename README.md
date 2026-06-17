@@ -29,7 +29,7 @@
 
 ## 🌐 在线预览
 
-👉 **[作品集页面](https://你的用户名.gitee.io/ecommerce-analysis)**
+👉 **[作品集页面](https://yanghuif102.github.io/ecommerce-analysis)**
 
 ## ⚠️ 说明
 
