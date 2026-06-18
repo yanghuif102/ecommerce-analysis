@@ -48,6 +48,8 @@
   .two-col { display: flex; gap: 14px; flex-wrap: wrap; margin: 14px 0; }
   .two-col > div { flex: 1; min-width: 280px; }
 
+  .card a { color: #1a73e8; }
+
   .end { text-align: center; color: #bbb; font-size: 13px; margin: 50px 0 30px; border-top: 1px solid #eee; padding-top: 20px; }
 
   @media (max-width: 600px) {
@@ -193,6 +195,17 @@
     <li>数据分析最重要的不是跑SQL和画图，而是<strong>从数字里看出业务问题</strong>。漏斗转好还是转差、哪个环节掉人最多、为什么——这个判断力的锻炼比技术本身更有价值</li>
     <li>Python和BI各有所长。Python适合做深入分析（比如RFM分群的计算逻辑比较复杂），BI适合把结果做成可交互的看板，方便给不懂技术的人看</li>
     <li>数据是仿真的，但方法是真的。后来看面经里的业务分析题（"GMV下降了怎么分析""怎么给用户分层"），发现这个项目直接就能拿来当答案</li>
+  </ul>
+</div>
+
+<h2>源码</h2>
+<div class="card">
+  <p>项目代码都放在 GitHub 上，可以直接看：</p>
+  <ul>
+    <li><a href="https://github.com/yanghuif102/ecommerce-analysis/blob/main/sql_exercises.sql" target="_blank">sql_exercises.sql</a> — 10 道 SQL 练习题（GROUP BY / JOIN / 子查询 / CASE WHEN）</li>
+    <li><a href="https://github.com/yanghuif102/ecommerce-analysis/blob/main/job_analysis.py" target="_blank">job_analysis.py</a> — 招聘数据多维度分析（Pandas + Matplotlib，6 张图表）</li>
+    <li><a href="https://github.com/yanghuif102/ecommerce-analysis/blob/main/job_crawler.py" target="_blank">job_crawler.py</a> — Boss直聘 & 拉勾爬虫 + 仿真数据生成</li>
+    <li><a href="https://github.com/yanghuif102/ecommerce-analysis/blob/main/pandas_hands_on.py" target="_blank">pandas_hands_on.py</a> — Pandas 实战教程（筛选 / 分组 / 合并 / 统计分析）</li>
   </ul>
 </div>
 
