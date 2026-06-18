@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-招聘数据采集 —— 数据分析岗位
-采集来源：拉勾网、Boss直聘
-目标：收集数据分析实习/全职岗位的技能要求、薪资、城市、学历等信息
-"""
 import requests
 import json
 import time
@@ -64,7 +59,7 @@ def crawl_boss(keyword='数据分析', pages=5):
         except Exception as e:
             print(f'  Boss直聘第{page}页: 错误 - {e}')
 
-        time.sleep(random.uniform(3, 6))  # 礼貌爬取
+        time.sleep(random.uniform(3, 6))
 
     return jobs
 
