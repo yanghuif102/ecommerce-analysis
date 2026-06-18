@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Pandas 实战教程 —— 用你自己的电商数据学
-运行每一段，亲眼看到结果
-"""
 import pymysql
 import pandas as pd
 
